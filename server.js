@@ -1,25 +1,27 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 const conTable = require("console.table");
-///const db = require(".");
+
 
 const connection = mysql.createConnection({
   host: "localhost",
-  port: 3001,
+  port: 5500,
   user: "root",
-  password: "password",
+  password: "passwordHere",
   database: "employee_db"
+
 });
 
 connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id" + connection.threadId);
+  
   startScreen();
 
 });
 
 function startScreen() {
-  inquirer.createPromptModule({
+  inquirer.prompt({
     type: "list",
     choices: [
       "Add Department",
