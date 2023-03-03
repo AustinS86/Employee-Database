@@ -1,6 +1,8 @@
+// The required dependencies needed to run the program
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 
+// The connection for mysql
 const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -16,6 +18,7 @@ connection.connect(function (err) {
   startScreen();
 });
 
+// These are questions the user will see when they log in
 function startScreen() {
   inquirer
     .prompt({
@@ -35,7 +38,7 @@ function startScreen() {
     })
     .then(function (result) {
       console.log("You entered: " + result.option);
-
+      // The code below is what is executed when the user chooses one of the questions above
       switch (result.option) {
         case "Add Department":
           addDepartment();
@@ -63,7 +66,7 @@ function startScreen() {
       }
     });
 }
-
+// This code is what is needed to add dept to your db
 function addDepartment() {
   inquirer
     .prompt({
@@ -83,7 +86,7 @@ function addDepartment() {
       );
     });
 }
-
+// This code is what is needed to add a role to your db
 function addRole() {
   inquirer
     .prompt([
@@ -115,7 +118,7 @@ function addRole() {
       );
     });
 }
-
+// This code is what is needed add an employee to your db
 function addEmployee() {
   inquirer
     .prompt([
@@ -157,7 +160,7 @@ function addEmployee() {
       );
     });
 }
-
+// This code is what is needed to update the employee to your db
 function updateEmployee() {
   inquirer
     .prompt([
@@ -189,7 +192,7 @@ function updateEmployee() {
       );
     });
 }
-
+// The code below is what shows what tables you chose in the beginning
 function viewDepartment() {
   let query = "SELECT * FROM department";
   connection.query(query, function (err, res) {
@@ -216,7 +219,7 @@ function viewEmployees() {
     startScreen();
   });
 }
-
+// This will quit the program from running
 function quit() {
   connection.end();
   process.exit();
